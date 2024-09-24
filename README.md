@@ -41,11 +41,10 @@ CREATE DATABASE your_test_db_name;
 ## Миграции
 Команды выполняются при запущенном контейнере
 ```bash
-#инициализация alembic
+#инициализация alembic (по необходимости)
 docker exec -it inventory_api-web-1 alembic init alembic
 # создание миграций
 docker exec -it <container_name> alembic revision --autogenerate -m "your comment"
-
 # применение миграций
 docker exec -it <container_name> alembic upgrade head
 
