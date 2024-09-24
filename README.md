@@ -47,5 +47,7 @@ docker exec -it inventory_api-web-1 alembic init alembic
 docker exec -it <container_name> alembic revision --autogenerate -m "your comment"
 # применение миграций
 docker exec -it <container_name> alembic upgrade head
+#запуск тестов
+docker-compose up tests 
 
 ```
