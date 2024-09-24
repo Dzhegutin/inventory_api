@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8000:8000"
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./app:/app/app
+
+    environment:
+      - DATABASE_URL=${DB_URL}
+    depends_on:
+      - db
+    env_file:
+      - .env
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/app/app
+      - ./tests:/app/tests
+    environment:
+      - DATABASE_URL=${DB_TEST_URL}
+    command: pytest /app/tests
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+volumes:
+  postgres_data:

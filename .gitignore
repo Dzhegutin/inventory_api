@@ -1,0 +1,11 @@
+.venv
+/venv
+.env
+/.env
+.pytest_cache
+.idea
+__pycache__
+alembic/__pycache__
+app/__pycache__
+app/routers/__pycache__
+tests/__pycache__

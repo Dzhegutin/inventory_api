@@ -1,0 +1,4 @@
+.venv
+/venv
+.pytest_cache
+Тестовое задание Junior Python developer.pdf
